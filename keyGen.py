@@ -60,13 +60,17 @@ while not(cek_q):
         print("input q bukan prima")
         q = int(input("masukan q: "))
 
+n = p*q
 e = tenE(p,q)
 d = tenD(p,q,e)
 
+n_fin = str(n)
 e_fin = str(e)
 d_fin = str(d)
 
-print(e_fin,d_fin)
+f = open('nKey.pub',"w")
+f.write(n_fin)
+f.close
 
 f = open('pubKey.pub',"w")
 f.write(e_fin)
