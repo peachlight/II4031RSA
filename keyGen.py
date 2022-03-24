@@ -1,5 +1,5 @@
 from math import sqrt
-import random
+import random, math
 
 def isPrima(bilangan) -> bool:
     cek = 0
@@ -18,9 +18,8 @@ def tenE (p,q):
     list_e = []
 
     for i in range (2,phi):
-        if phi % i != 0:
-            if isPrima(i):
-                list_e.append(i)
+        if isPrima(i) and (math.gcd(i,phi) == 1):
+            list_e.append(i)
     
     e = random.choice(list_e)
     return e
