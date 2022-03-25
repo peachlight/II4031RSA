@@ -38,14 +38,11 @@ def UploadAction(event=None):
     pathh.insert(END, tf)
     return (tf)
 
-# Add Function Generate Private Key
-def generatePriv():
+# Add Function Generate  Key
+def generateKey():
     #Call Function
-    return()
-
-# Add Function Generate Public Key
-def generatePub():
-    #Call Function
+    nilaiP = inputp.get("1.0", "end-1c")
+    nilaiQ = inputq.get("1.0", "end-1c")
     return()
 
 # Add Function for Encrypt
@@ -93,12 +90,16 @@ def decryptFile():
     PRINTRESULT.close()
 
 # Add Button, Label
-l = Label(frame, text = "Upload file untuk didekripsi/enkripsi")
+l = Label(frame, text = "Masukkan nilai p dan q untuk generate key")
 l.pack()
-generatePrivKeyButton = tk.Button(frame, text = "Generate Private Key", padx=10, pady=5, fg="black", bg="white", command = generatePriv)
-generatePrivKeyButton.pack(pady=10)
-generatePubKeyButton = tk.Button(frame, text = "Generate Public Key", padx=10, pady=5, fg="black", bg="white", command = generatePub)
-generatePubKeyButton.pack(pady=10)
+inputp = Text(frame, height = 2, width = 25, bg = "light yellow")
+inputp.insert(END, "Masukkan nilai p")
+inputp.pack()
+inputq = Text(frame, height = 2, width = 25, bg = "light yellow")
+inputq.insert(END, "Masukkan nilai q")
+inputq.pack()
+generateKeyButton = tk.Button(frame, text = "Generate Key", padx=10, pady=5, fg="black", bg="white", command = generateKey)
+generateKeyButton.pack(pady=10)
 encryptFileButton = tk.Button(frame, text = "Upload File and Encrypt", padx=10, pady=5, fg="black", bg="white", command = encryptFile)
 encryptFileButton.pack(pady=10)
 decryptFileButton = tk.Button(frame, text = "Upload File and Decrypt", padx=10, pady=5, fg="black", bg="white", command = decryptFile)
