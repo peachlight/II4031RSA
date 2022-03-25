@@ -7,15 +7,6 @@ from tkinter import filedialog
 from enFile import *
 from keyGen import *
 
-# Import Function
-"""from deFile import *
-from deKata import *
-from enFile import *
-from enKata import *
-from enkripdekrip import *
-from keyGen import *
-from rsa import *"""
-
 # Tampilan Halaman Utama
 root = tk.Tk()
 root.title("RSA")
@@ -76,91 +67,8 @@ def generateKey():
         f = open('priKey.pri','w')
         f.write(d_fin)
         f.close
+        Output.insert(END, "Key berhasil dibangkitkan, silakan cek folder anda")
     return()
-
-# Add Function for Encrypt Text
-def encryptText():
-    milprev = int(round(time.time()*1000))
-    #Ambil Nilai N
-    f = open("nKey.pub",'r')
-    nKey = f.read()
-    n = int(nKey)
-    f.close()
-    #Ambil Nilai pub key
-    f = open("pubKey.pub",'r')
-    pubKey = f.read()
-    e = int(pubKey)
-    f.close()
-
-    dirPath = UploadAction()
-    print(dirPath)
-    INPUT = open(dirPath,'rb')
-    # KUNCI = 
-    # print(KUNCI)
-    c = bytearray(INPUT.read())
-    INPUT.close()
-
-    #Encryption
-    c = enRSA(c,n,e)
-    
-    # Overwrite file
-    f = open(dirPath,'wb')
-    f.write(c)
-    f.close
-    milcurr = int(round(time.time()*1000))
-
-    size = str(os.path.getsize(dirPath))
-    duration = str(milcurr-milprev)
-
-    # Message to label
-    Output.delete("1.0","end")
-    PRINTRESULT = open(dirPath,'rb')
-    Output.insert(END, PRINTRESULT)
-    durationOutput.insert(END,duration+" ms")
-    sizeOutput.insert(END,size+" bytes")
-    PRINTRESULT.close()
-
-# Add Function for Decrypt Text
-def decryptText():
-    milprev = int(round(time.time()*1000))
-    #Ambil Nilai N
-    f = open("nKey.pub",'r')
-    nKey = f.read()
-    n = int(nKey)
-    f.close()
-    #Ambil Nilai pri key
-    f = open("priKey.pri",'r')
-    priKey = f.read()
-    d = int(priKey)
-    f.close()
-
-    dirPath = UploadAction()
-    print(dirPath)
-    INPUT = open(dirPath,'rb')
-    m = bytearray(INPUT.read())
-    # KUNCI = 
-    # print(KUNCI)
-    INPUT.close()
-
-    #Decryption
-    m = deRSA(m,n,d)
-
-    # Overwrite file
-    f = open(dirPath,'wb')
-    f.write(m)
-    f.close
-    milcurr = int(round(time.time()*1000))
-
-    size = str(os.path.getsize(dirPath))
-    duration = str(milcurr-milprev)
-
-    # Message to label
-    Output.delete("1.0","end")
-    PRINTRESULT = open(dirPath,'rb')
-    Output.insert(END, PRINTRESULT)
-    durationOutput.insert(END,duration+" ms")
-    sizeOutput.insert(END,size+" bytes")
-    PRINTRESULT.close()
 
 # Add Function for Encrypt
 def encryptFile():
@@ -198,11 +106,9 @@ def encryptFile():
 
     # Message to label
     Output.delete("1.0","end")
-    PRINTRESULT = open(dirPath,'rb')
-    Output.insert(END, PRINTRESULT)
+    Output.insert(END, "Berhasil dienkripsi, silahkan cek file terkait")
     durationOutput.insert(END,duration+" ms")
     sizeOutput.insert(END,size+" bytes")
-    PRINTRESULT.close()
 
 # Add Function for Decrypt
 def decryptFile():
@@ -240,11 +146,9 @@ def decryptFile():
 
     # Message to label
     Output.delete("1.0","end")
-    PRINTRESULT = open(dirPath,'rb')
-    Output.insert(END, PRINTRESULT)
+    Output.insert(END, "Berhasil didekripsi, silahkan cek file terkait")
     durationOutput.insert(END,duration+" ms")
     sizeOutput.insert(END,size+" bytes")
-    PRINTRESULT.close()
 
 # Add Button, Label
 l = Label(frame, text = "Masukkan nilai p dan q untuk generate key")
@@ -257,10 +161,6 @@ inputq.insert(END, "Masukkan nilai q")
 inputq.pack()
 generateKeyButton = tk.Button(frame, text = "Generate Key", padx=10, pady=5, fg="black", bg="white", command = generateKey)
 generateKeyButton.pack(pady=10)
-encryptTextButton = tk.Button(frame, text = "Upload Text and Encrypt", padx=10, pady=5, fg="black", bg="white", command = encryptText)
-encryptTextButton.pack(pady=10)
-decryptTextButton = tk.Button(frame, text = "Upload Text and Decrypt", padx=10, pady=5, fg="black", bg="white", command = decryptText)
-decryptTextButton.pack(pady=10)
 encryptFileButton = tk.Button(frame, text = "Upload File and Encrypt", padx=10, pady=5, fg="black", bg="white", command = encryptFile)
 encryptFileButton.pack(pady=10)
 decryptFileButton = tk.Button(frame, text = "Upload File and Decrypt", padx=10, pady=5, fg="black", bg="white", command = decryptFile)
