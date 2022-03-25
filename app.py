@@ -1,8 +1,11 @@
 # Import Library & Extension
+import time, os
 import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 from tkinter import filedialog
+from enFile import *
+from keyGen import *
 
 # Import Function
 """from deFile import *
@@ -41,52 +44,122 @@ def UploadAction(event=None):
 # Add Function Generate  Key
 def generateKey():
     #Call Function
-    nilaiP = inputp.get("1.0", "end-1c")
-    nilaiQ = inputq.get("1.0", "end-1c")
+    p = int(inputp.get("1.0", "end-1c"))
+    cek_p = False
+    if isPrima(p):
+        cek_p = True
+    else:
+        print("input p bukan prima")
+    q = int(inputq.get("1.0", "end-1c"))
+    cek_q = False
+    if isPrima(q):
+        cek_q = True
+    else:
+        print("input q bukan prima")
+    if cek_p and cek_q:
+        n = p*q
+        e = tenE(p,q)
+        d = tenD(p,q,e)
+
+        n_fin = str(n)
+        e_fin = str(e)
+        d_fin = str(d)
+
+        f = open('nKey.pub',"w")
+        f.write(n_fin)
+        f.close
+
+        f = open('pubKey.pub',"w")
+        f.write(e_fin)
+        f.close
+
+        f = open('priKey.pri','w')
+        f.write(d_fin)
+        f.close
     return()
 
 # Add Function for Encrypt
 def encryptFile():
+    milprev = int(round(time.time()*1000))
+    #Ambil Nilai N
+    f = open("nKey.pub",'r')
+    nKey = f.read()
+    n = int(nKey)
+    f.close()
+    #Ambil Nilai pub key
+    f = open("pubKey.pub",'r')
+    pubKey = f.read()
+    e = int(pubKey)
+    f.close()
+
     dirPath = UploadAction()
     print(dirPath)
     INPUT = open(dirPath,'rb')
     # KUNCI = 
     # print(KUNCI)
+    c = bytearray(INPUT.read())
     INPUT.close()
 
     #Encryption
+    c = enRSA(c,n,e)
     
     # Overwrite file
     f = open(dirPath,'wb')
-    # f.write(kata)
+    f.write(c)
     f.close
+    milcurr = int(round(time.time()*1000))
+
+    size = str(os.path.getsize(dirPath))
+    duration = str(milcurr-milprev)
 
     # Message to label
     Output.delete("1.0","end")
     PRINTRESULT = open(dirPath,'rb')
     Output.insert(END, PRINTRESULT)
+    durationOutput.insert(END,duration+" ms")
+    sizeOutput.insert(END,size+" bytes")
     PRINTRESULT.close()
 
 # Add Function for Decrypt
 def decryptFile():
+    milprev = int(round(time.time()*1000))
+    #Ambil Nilai N
+    f = open("nKey.pub",'r')
+    nKey = f.read()
+    n = int(nKey)
+    f.close()
+    #Ambil Nilai pri key
+    f = open("priKey.pri",'r')
+    priKey = f.read()
+    d = int(priKey)
+    f.close()
+
     dirPath = UploadAction()
     print(dirPath)
     INPUT = open(dirPath,'rb')
+    m = bytearray(INPUT.read())
     # KUNCI = 
     # print(KUNCI)
     INPUT.close()
 
     #Decryption
-    
+    m = deRSA(m,n,d)
+
     # Overwrite file
     f = open(dirPath,'wb')
-    # f.write(kata)
+    f.write(m)
     f.close
+    milcurr = int(round(time.time()*1000))
+
+    size = str(os.path.getsize(dirPath))
+    duration = str(milcurr-milprev)
 
     # Message to label
     Output.delete("1.0","end")
     PRINTRESULT = open(dirPath,'rb')
     Output.insert(END, PRINTRESULT)
+    durationOutput.insert(END,duration+" ms")
+    sizeOutput.insert(END,size+" bytes")
     PRINTRESULT.close()
 
 # Add Button, Label

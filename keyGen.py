@@ -40,41 +40,41 @@ def tenD (p,q,e):
     d = modInverse(e, phi)
     return d
 
-p = int(input("masukan p: "))
-cek_p = False
-while not(cek_p):
-    if isPrima(p):
-        cek_p = True
-    else:
-        print("input p bukan prima")
-        p = int(input("masukan p: "))
+# p = int(input("masukan p: "))
+# cek_p = False
+# while not(cek_p):
+#     if isPrima(p):
+#         cek_p = True
+#     else:
+#         print("input p bukan prima")
+#         p = int(input("masukan p: "))
     
 
-q = int(input("masukan q: "))
-cek_q = False
-while not(cek_q):
-    if isPrima(q):
-        cek_q = True
-    else:
-        print("input q bukan prima")
-        q = int(input("masukan q: "))
+# q = int(input("masukan q: "))
+# cek_q = False
+# while not(cek_q):
+#     if isPrima(q):
+#         cek_q = True
+#     else:
+#         print("input q bukan prima")
+#         q = int(input("masukan q: "))
 
-n = p*q
-e = tenE(p,q)
-d = tenD(p,q,e)
+# n = p*q
+# e = tenE(p,q)
+# d = tenD(p,q,e)
 
-n_fin = str(n)
-e_fin = str(e)
-d_fin = str(d)
+# n_fin = str(n)
+# e_fin = str(e)
+# d_fin = str(d)
 
-f = open('nKey.pub',"w")
-f.write(n_fin)
-f.close
+# f = open('nKey.pub',"w")
+# f.write(n_fin)
+# f.close
 
-f = open('pubKey.pub',"w")
-f.write(e_fin)
-f.close
+# f = open('pubKey.pub',"w")
+# f.write(e_fin)
+# f.close
 
-f = open('priKey.pri','w')
-f.write(d_fin)
-f.close
+# f = open('priKey.pri','w')
+# f.write(d_fin)
+# f.close
